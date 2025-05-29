@@ -84,6 +84,46 @@
       50% { transform: scale(1.1); }
       100% { transform: scale(1); }
     }
+    /* Mobile-specific styles */
+    @media (max-width: 640px) {
+      .container {
+        padding-left: 1rem;
+        padding-right: 1rem;
+      }
+      .hamburger-menu {
+        top: 0.5rem;
+        left: 0.5rem;
+      }
+      .sidebar {
+        width: 75%;
+      }
+      .textarea {
+        min-height: 120px;
+      }
+      .modal {
+        width: 95%;
+        margin: 0 auto;
+      }
+      .modal-content {
+        padding: 1rem;
+      }
+      .button {
+        padding: 0.75rem 1.5rem;
+        font-size: 1rem;
+      }
+      .icon-button {
+        padding: 0.75rem;
+      }
+      .text-lg {
+        font-size: 1rem;
+      }
+      .text-xl {
+        font-size: 1.25rem;
+      }
+      .text-2xl {
+        font-size: 1.5rem;
+      }
+    }
   </style>
 </head>
 <body className="bg-spiritual min-h-screen">
@@ -190,7 +230,7 @@
         if (!SpeechRecognition) return;
 
         const recognition = new SpeechRecognition();
-        recognition.lang = "en-US";
+        recognition.lang = "en-IN"; // Use Indian English for recognition
         recognition.interimResults = true;
         recognition.continuous = true;
 
@@ -312,7 +352,7 @@
         if (followUpContext) {
           isFollowUp = true;
           originalQuestion = followUpContext.question;
-          prompt = `Act as Lord Krishna from the Bhagavad Gita, responding in English with a wise, compassionate, direct, and spiritual tone, free from ego, as a divine teacher. The user has asked a刷新-up question based on this previous interaction:
+          prompt = `Act as Lord Krishna from the Bhagavad Gita, responding in English with a wise, compassionate, direct, and spiritual tone, free from ego, as a divine teacher. The user has asked a follow-up question based on this previous interaction:
 
 **Previous Question**: ${followUpContext.question}
 **Previous Response**: ${followUpContext.response}
@@ -418,7 +458,7 @@ Format the response as:
         <div className={`min-h-screen ${darkMode ? "dark" : ""}`}>
           {/* Hamburger Menu */}
           <button
-            className="fixed top-4 left-4 md:hidden hamburger-menu z-50"
+            className="fixed top-4 left-4 sm:top-2 sm:left-2 md:hidden hamburger-menu z-50 icon-button"
             onClick={() => setSidebarOpen(true)}
           >
             <svg className="w-6 h-6 text-gray-800 dark:text-gray-200" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -428,49 +468,49 @@ Format the response as:
 
           {/* Sidebar */}
           <div
-            className={`fixed inset-y-0 left-0 w-56 bg-purple-800 dark:bg-purple-900 text-white transform ${sidebarOpen ? "translate-x-0" : "-translate-x-full"} md:translate-x-0 transition-transform duration-300 ease-in-out z-40 shadow-lg`}
+            className={`fixed inset-y-0 left-0 w-56 sm:w-3/4 md:w-56 bg-purple-800 dark:bg-purple-900 text-white transform ${sidebarOpen ? "translate-x-0" : "-translate-x-full"} md:translate-x-0 transition-transform duration-300 ease-in-out z-40 shadow-lg sidebar`}
           >
-            <div className="p-5 flex justify-between items-center">
-              <h2 className="text-xl font-semibold">Saarathi</h2>
-              <button className="md:hidden text-gray-200" onClick={() => setSidebarOpen(false)}>
+            <div className="p-4 sm:p-3 flex justify-between items-center">
+              <h2 className="text-xl sm:text-lg font-semibold">Saarathi</h2>
+              <button className="md:hidden text-gray-200 icon-button" onClick={() => setSidebarOpen(false)}>
                 <svg className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M6 18L18 6M6 6l12 12" />
                 </svg>
               </button>
             </div>
-            <nav className="p-5 space-y-3">
+            <nav className="p-4 sm:p-3 space-y-2">
               <button
-                className="w-full flex items-center p-3 rounded-lg hover:bg-purple-700 dark:hover:bg-purple-800 transition text-base"
+                className="w-full flex items-center p-3 sm:p-2 rounded-lg hover:bg-purple-700 dark:hover:bg-purple-800 transition text-base sm:text-sm button"
                 onClick={() => { setShowHistory(false); setSidebarOpen(false); setFollowUpContext(null); }}
               >
-                <svg className="w-5 h-5 mr-3" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <svg className="w-5 h-5 mr-2 sm:mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M8 10h.01M12 10h.01M16 10h.01M9 16H5v-4l7-7 4 4 7-7" />
                 </svg>
                 Ask a Question
               </button>
               <button
-                className="w-full flex items-center p-3 rounded-lg hover:bg-purple-700 dark:hover:bg-purple-800 transition text-base"
+                className="w-full flex items-center p-3 sm:p-2 rounded-lg hover:bg-purple-700 dark:hover:bg-purple-800 transition text-base sm:text-sm button"
                 onClick={() => { setShowHistory(true); setSidebarOpen(false); }}
               >
-                <svg className="w-5 h-5 mr-3" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <svg className="w-5 h-5 mr-2 sm:mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
                 </svg>
                 History
               </button>
               <button
-                className="w-full flex items-center p-3 rounded-lg hover:bg-purple-700 dark:hover:bg-purple-800 transition text-base"
+                className="w-full flex items-center p-3 sm:p-2 rounded-lg hover:bg-purple-700 dark:hover:bg-purple-800 transition text-base sm:text-sm button"
                 onClick={() => { setShowVoiceModal(true); setSidebarOpen(false); }}
               >
-                <svg className="w-5 h-5 mr-3" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <svg className="w-5 h-5 mr-2 sm:mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M19 11a7 7 0 01-7 7m0 0a7 7 0 01-7-7m7 7v4m0 0H8m4 0h4m-4-8a3 3 0 01-3-3V5a3 3 0 116 0v6a3 3 0 01-3 3z" />
                 </svg>
                 Select Voice
               </button>
               <button
-                className="w-full flex items-center p-3 rounded-lg hover:bg-purple-700 dark:hover:bg-purple-800 transition text-base"
+                className="w-full flex items-center p-3 sm:p-2 rounded-lg hover:bg-purple-700 dark:hover:bg-purple-800 transition text-base sm:text-sm button"
                 onClick={() => { setDarkMode(!darkMode); setSidebarOpen(false); }}
               >
-                <svg className="w-5 h-5 mr-3" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <svg className="w-5 h-5 mr-2 sm:mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 0118 0z" />
                 </svg>
                 {darkMode ? "Light Mode" : "Dark Mode"}
@@ -487,19 +527,19 @@ Format the response as:
           )}
 
           {/* Main Content */}
-          <main className="container mx-auto p-5 md:p-10 pt-16 md:pt-0 flex justify-center">
+          <main className="container mx-auto p-4 sm:p-5 md:p-10 pt-16 sm:pt-12 md:pt-0 flex justify-center">
             <div className="w-full max-w-3xl">
               {/* Error Message */}
               {error && (
-                <div className="glass p-5 mb-6 text-red-600 dark:text-red-400 fade-in-scale text-lg">
+                <div className="glass p-4 sm:p-5 mb-4 sm:mb-6 text-red-600 dark:text-red-400 fade-in-scale text-base sm:text-lg">
                   {error}
                 </div>
               )}
 
               {/* Input Form */}
-              <div className="glass p-8 mb-6 fade-in-scale">
+              <div className="glass p-6 sm:p-8 mb-4 sm:mb-6 fade-in-scale">
                 {followUpContext && (
-                  <div className="mb-4 text-base text-gray-600 dark:text-gray-300">
+                  <div className="mb-3 sm:mb-4 text-sm sm:text-base text-gray-600 dark:text-gray-300">
                     Asking a follow-up question for: <span className="font-semibold">{followUpContext.question}</span>
                     <button
                       onClick={cancelFollowUp}
@@ -509,24 +549,24 @@ Format the response as:
                     </button>
                   </div>
                 )}
-                <label className="block text-lg md:text-xl font-semibold mb-3 text-gray-800 dark:text-gray-200">
+                <label className="block text-base sm:text-lg md:text-xl font-semibold mb-2 sm:mb-3 text-gray-800 dark:text-gray-200">
                   Enter or speak your question or dilemma (e.g., "I struggle to control anger at work")
                 </label>
-                <div className="flex items-center gap-4">
+                <div className="flex flex-col sm:flex-row items-start sm:items-center gap-3 sm:gap-4">
                   <textarea
                     value={question}
                     onChange={(e) => setQuestion(e.target.value)}
                     placeholder={followUpContext ? "Enter or speak a follow-up question" : "e.g., I struggle to control anger at work"}
-                    className="w-full p-4 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 bg-white dark:bg-gray-700 dark:text-white dark:border-gray-600 text-lg"
-                    rows="4"
+                    className="w-full p-3 sm:p-4 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 bg-white dark:bg-gray-700 dark:text-white dark:border-gray-600 text-base sm:text-lg textarea"
+                    rows="3"
                   />
                   {isVoiceSupported && (
                     <button
                       onClick={isListening ? stopListening : startListening}
-                      className={`p-3 rounded-full ${isListening ? "bg-red-500 mic-active" : "bg-blue-500"} text-white hover:bg-opacity-80 transition`}
+                      className={`p-3 sm:p-4 rounded-full ${isListening ? "bg-red-500 mic-active" : "bg-blue-500"} text-white hover:bg-opacity-80 transition icon-button`}
                       disabled={isSpeaking}
                     >
-                      <svg className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                      <svg className="w-6 h-6 sm:w-7 sm:h-7" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                         {isListening ? (
                           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M6 18L18 6M6 6l12 12" />
                         ) : (
@@ -538,7 +578,7 @@ Format the response as:
                 </div>
                 <button
                   onClick={handleSubmit}
-                  className="mt-4 bg-blue-500 text-white px-6 py-3 rounded-lg hover:bg-blue-600 transition transform hover:scale-105 w-full md:w-auto flex items-center justify-center text-lg"
+                  className="mt-3 sm:mt-4 bg-blue-500 text-white px-5 sm:px-6 py-2 sm:py-3 rounded-lg hover:bg-blue-600 transition transform hover:scale-105 w-full sm:w-auto flex items-center justify-center text-base sm:text-lg button"
                   disabled={isListening || isSpeaking}
                 >
                   <svg className="w-5 h-5 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -550,50 +590,50 @@ Format the response as:
 
               {/* Output */}
               {(response || shloka || translation || explanation) && (
-                <div className="glass p-8 mb-6 fade-in-scale">
-                  <div className="flex justify-between items-center mb-4">
-                    <h3 className="text-xl md:text-2xl font-semibold text-gray-800 dark:text-gray-200">
+                <div className="glass p-6 sm:p-8 mb-4 sm:mb-6 fade-in-scale">
+                  <div className="flex justify-between items-center mb-3 sm:mb-4">
+                    <h3 className="text-lg sm:text-xl md:text-2xl font-semibold text-gray-800 dark:text-gray-200">
                       Krishna's Guidance
                     </h3>
                     {isVoiceSupported && (
                       <button
                         onClick={() => speakResponse(response)}
-                        className={`p-2 rounded-full ${isSpeaking ? "bg-yellow-500" : "bg-green-500"} text-white hover:bg-opacity-80 transition`}
+                        className={`p-2 sm:p-3 rounded-full ${isSpeaking ? "bg-yellow-500" : "bg-green-500"} text-white hover:bg-opacity-80 transition icon-button`}
                         disabled={isListening || isSpeaking}
                       >
-                        <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <svg className="w-5 h-5 sm:w-6 sm:h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M15.536 8.464a5 5 0 010 7.072m2.828-9.9a9 9 0 010 12.728M5.586 15H4a1 1 0 01-1-1v-4a1 1 0 011-1h1.586l4.707-4.707A1 1 0 0112 5v14a1 1 0 01-1.707.707L5.586 15z" />
                         </svg>
                       </button>
                     )}
                   </div>
                   {response && (
-                    <div className="mb-5">
-                      <h4 className="font-semibold text-lg md:text-xl text-gray-800 dark:text-gray-200 mb-2">Response:</h4>
-                      <div className="output-block text-lg">{response}</div>
+                    <div className="mb-4 sm:mb-5">
+                      <h4 className="font-semibold text-base sm:text-lg md:text-xl text-gray-800 dark:text-gray-200 mb-2">Response:</h4>
+                      <div className="output-block text-base sm:text-lg">{response}</div>
                     </div>
                   )}
                   {shloka && (
-                    <div className="mb-5">
-                      <h4 className="font-semibold text-lg md:text-xl text-gray-800 dark:text-gray-200 mb-2">Shloka:</h4>
-                      <div className="output-block text-lg sanskrit">{shloka}</div>
+                    <div className="mb-4 sm:mb-5">
+                      <h4 className="font-semibold text-base sm:text-lg md:text-xl text-gray-800 dark:text-gray-200 mb-2">Shloka:</h4>
+                      <div className="output-block text-base sm:text-lg sanskrit">{shloka}</div>
                     </div>
                   )}
                   {translation && (
-                    <div className="mb-5">
-                      <h4 className="font-semibold text-lg md:text-xl text-gray-800 dark:text-gray-200 mb-2">Translation:</h4>
-                      <div className="output-block text-lg">{translation}</div>
+                    <div className="mb-4 sm:mb-5">
+                      <h4 className="font-semibold text-base sm:text-lg md:text-xl text-gray-800 dark:text-gray-200 mb-2">Translation:</h4>
+                      <div className="output-block text-base sm:text-lg">{translation}</div>
                     </div>
                   )}
                   {explanation && (
-                    <div className="mb-5">
-                      <h4 className="font-semibold text-lg md:text-xl text-gray-800 dark:text-gray-200 mb-2">Explanation:</h4>
-                      <div className="output-block text-lg">{explanation}</div>
+                    <div className="mb-4 sm:mb-5">
+                      <h4 className="font-semibold text-base sm:text-lg md:text-xl text-gray-800 dark:text-gray-200 mb-2">Explanation:</h4>
+                      <div className="output-block text-base sm:text-lg">{explanation}</div>
                     </div>
                   )}
                   <button
                     onClick={startFollowUp}
-                    className="mt-4 bg-yellow-500 text-white px-6 py-3 rounded-lg hover:bg-yellow-600 transition transform hover:scale-105 flex items-center justify-center text-lg"
+                    className="mt-3 sm:mt-4 bg-yellow-500 text-white px-5 sm:px-6 py-2 sm:py-3 rounded-lg hover:bg-yellow-600 transition transform hover:scale-105 flex items-center justify-center text-base sm:text-lg w-full sm:w-auto button"
                     disabled={isListening || isSpeaking}
                   >
                     <svg className="w-5 h-5 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -608,48 +648,48 @@ Format the response as:
 
           {/* History Modal */}
           {showHistory && (
-            <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4">
-              <div className="glass p-8 max-h-[80vh] overflow-y-auto w-full max-w-3xl">
-                <div className="flex justify-between items-center mb-5">
-                  <h3 className="text-xl md:text-2xl font-semibold text-gray-800 dark:text-gray-200">
+            <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-2 sm:p-4">
+              <div className="glass p-4 sm:p-8 max-h-[90vh] overflow-y-auto w-full max-w-3xl modal modal-content">
+                <div className="flex justify-between items-center mb-3 sm:mb-5">
+                  <h3 className="text-lg sm:text-xl md:text-2xl font-semibold text-gray-800 dark:text-gray-200">
                     History
                   </h3>
                   <button
                     onClick={() => setShowHistory(false)}
-                    className="text-gray-500 hover:text-gray-700 dark:text-gray-300 dark:hover:text-gray-100"
+                    className="text-gray-500 hover:text-gray-700 dark:text-gray-300 dark:hover:text-gray-100 icon-button"
                   >
-                    <svg className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <svg className="w-6 h-6 sm:w-7 sm:h-7" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M6 18L18 6M6 6l12 12" />
                     </svg>
                   </button>
                 </div>
                 {history.length === 0 ? (
-                  <p className="text-gray-600 dark:text-gray-300 text-lg">No history available.</p>
+                  <p className="text-gray-600 dark:text-gray-300 text-base sm:text-lg">No history available.</p>
                 ) : (
                   history.map((entry, index) => (
-                    <div key={index} className="mb-5 p-5 bg-white dark:bg-gray-700 rounded-lg">
-                      <p className="text-base text-gray-500 dark:text-gray-400">{entry.timestamp}</p>
-                      <p className="text-base text-gray-600 dark:text-gray-300">
+                    <div key={index} className="mb-4 sm:mb-5 p-4 sm:p-5 bg-white dark:bg-gray-700 rounded-lg">
+                      <p className="text-sm sm:text-base text-gray-500 dark:text-gray-400">{entry.timestamp}</p>
+                      <p className="text-sm sm:text-base text-gray-600 dark:text-gray-300">
                         {entry.isVoiceInput ? "Voice Question" : "Question"}: {entry.question}
                         {entry.isFollowUp && ` (Follow-up, Original: ${entry.originalQuestion})`}
                       </p>
-                      <p className="text-lg">Response: {entry.response}</p>
-                      <p className="text-lg sanskrit">Shloka: {entry.shloka}</p>
-                      <p className="text-lg">Translation: {entry.translation}</p>
-                      <p className="text-lg">Explanation: {entry.explanation}</p>
+                      <p className="text-base sm:text-lg">Response: {entry.response}</p>
+                      <p className="text-base sm:text-lg sanskrit">Shloka: {entry.shloka}</p>
+                      <p className="text-base sm:text-lg">Translation: {entry.translation}</p>
+                      <p className="text-base sm:text-lg">Explanation: {entry.explanation}</p>
                     </div>
                   ))
                 )}
-                <div className="flex flex-col md:flex-row gap-4">
+                <div className="flex flex-col sm:flex-row gap-3 sm:gap-4">
                   <button
                     onClick={exportHistory}
-                    className="bg-green-500 text-white px-6 py-3 rounded-lg hover:bg-green-600 transition transform hover:scale-105 w-full md:w-auto text-lg"
+                    className="bg-green-500 text-white px-5 sm:px-6 py-2 sm:py-3 rounded-lg hover:bg-green-600 transition transform hover:scale-105 w-full sm:w-auto text-base sm:text-lg button"
                   >
                     Export History
                   </button>
                   <button
                     onClick={clearHistory}
-                    className="bg-red-500 text-white px-6 py-3 rounded-lg hover:bg-red-600 transition transform hover:scale-105 w-full md:w-auto text-lg"
+                    className="bg-red-500 text-white px-5 sm:px-6 py-2 sm:py-3 rounded-lg hover:bg-red-600 transition transform hover:scale-105 w-full sm:w-auto text-base sm:text-lg button"
                   >
                     Clear History
                   </button>
@@ -660,40 +700,40 @@ Format the response as:
 
           {/* Voice Selection Modal */}
           {showVoiceModal && (
-            <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4">
-              <div className="glass p-8 max-h-[80vh] overflow-y-auto w-full max-w-3xl">
-                <div className="flex justify-between items-center mb-5">
-                  <h3 className="text-xl md:text-2xl font-semibold text-gray-800 dark:text-gray-200">
+            <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-2 sm:p-4">
+              <div className="glass p-4 sm:p-8 max-h-[90vh] overflow-y-auto w-full max-w-3xl modal modal-content">
+                <div className="flex justify-between items-center mb-3 sm:mb-5">
+                  <h3 className="text-lg sm:text-xl md:text-2xl font-semibold text-gray-800 dark:text-gray-200">
                     Select Voice
                   </h3>
                   <button
                     onClick={() => setShowVoiceModal(false)}
-                    className="text-gray-500 hover:text-gray-700 dark:text-gray-300 dark:hover:text-gray-100"
+                    className="text-gray-500 hover:text-gray-700 dark:text-gray-300 dark:hover:text-gray-100 icon-button"
                   >
-                    <svg className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <svg className="w-6 h-6 sm:w-7 sm:h-7" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M6 18L18 6M6 6l12 12" />
                     </svg>
                   </button>
                 </div>
                 {voices.length === 0 ? (
-                  <p className="text-gray-600 dark:text-gray-300 text-lg">No voices available.</p>
+                  <p className="text-gray-600 dark:text-gray-300 text-base sm:text-lg">No voices available.</p>
                 ) : (
                   voices.map((voice, index) => (
-                    <div key={index} className="mb-4 p-4 bg-white dark:bg-gray-700 rounded-lg flex justify-between items-center">
+                    <div key={index} className="mb-3 sm:mb-4 p-3 sm:p-4 bg-white dark:bg-gray-700 rounded-lg flex flex-col sm:flex-row justify-between items-start sm:items-center gap-2 sm:gap-0">
                       <div>
-                        <p className="text-lg font-semibold">{voice.name}</p>
-                        <p className="text-base text-gray-600 dark:text-gray-300">Language: {voice.lang}</p>
+                        <p className="text-base sm:text-lg font-semibold">{voice.name}</p>
+                        <p className="text-sm sm:text-base text-gray-600 dark:text-gray-300">Language: {voice.lang}</p>
                       </div>
-                      <div className="flex gap-2">
+                      <div className="flex flex-col sm:flex-row gap-2 w-full sm:w-auto">
                         <button
                           onClick={() => testVoice(voice)}
-                          className="bg-blue-500 text-white px-4 py-2 rounded-lg hover:bg-blue-600 transition text-base"
+                          className="bg-blue-500 text-white px-4 sm:px-5 py-2 sm:py-2 rounded-lg hover:bg-blue-600 transition text-sm sm:text-base w-full sm:w-auto button"
                         >
                           Test Voice
                         </button>
                         <button
                           onClick={() => selectVoice(voice)}
-                          className="bg-green-500 text-white px-4 py-2 rounded-lg hover:bg-green-600 transition text-base"
+                          className="bg-green-500 text-white px-4 sm:px-5 py-2 sm:py-2 rounded-lg hover:bg-green-600 transition text-sm sm:text-base w-full sm:w-auto button"
                         >
                           Select
                         </button>
